@@ -5,9 +5,8 @@
   "license": "ISC",
   "author": "",
   "type": "module",
-  "main": "table.js",
   "scripts": {
-    "mine": "node scripts/mine.js",
-    "missing": "node scripts/missing.js"
+    "thuweds:mine": "node scripts/thuweds/mine.js",
+    "thuweds:missing": "node scripts/thuweds/missing.js"
   }
 }

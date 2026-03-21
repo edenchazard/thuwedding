@@ -5,10 +5,10 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const mineCsvPath = path.join(__dirname, '..', 'sources', 'mine.csv');
-const tjCsvPath = path.join(__dirname, '..', 'sources', 'tj.csv');
-const templatePath = path.join(__dirname, '..', 'templates', 'missing.html');
-const outPath = path.join(__dirname, '..', 'artifacts', 'missing.html'); 
+const mineCsvPath = path.join(__dirname, '../..', 'sources', 'thuweds.csv');
+const tjCsvPath = path.join(__dirname, '../..', 'sources', 'tj-pairings.csv');
+const templatePath = path.join(__dirname, '../../templates/thuweds', 'missing.html');
+const outPath = path.join(__dirname, '../..', 'artifacts', 'missing.html'); 
 
 function getMinePairs() {
   const lines = fs.readFileSync(mineCsvPath, 'utf8').split(/\r?\n/).filter(Boolean);

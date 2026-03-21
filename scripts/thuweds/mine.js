@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const csvPath = path.join(__dirname, '..', 'sources', 'mine.csv');
+const csvPath = path.join(__dirname, '../..', 'sources', 'thuweds.csv');
 const csvContent = fs.readFileSync(csvPath, 'utf8');
 
 const rows = csvContent
@@ -36,11 +36,11 @@ const rows = csvContent
   })
   .join('\n');
 
-const templatePath = path.join(__dirname, '..', 'templates', 'mine.html');
+const templatePath = path.join(__dirname, '../../templates/thuweds', 'mine.html');
 let template = fs.readFileSync(templatePath, 'utf8');
 
 const output = template.replace('%REPLACE%', rows);
 
-const outPath = path.join(__dirname, '..', 'artifacts', 'mine.html');
+const outPath = path.join(__dirname, '../..', 'artifacts', 'thuweds.html');
 fs.writeFileSync(outPath, output, 'utf8');
 console.log('Wrote artifacts/mine.html');
