@@ -7,6 +7,9 @@
   "type": "module",
   "scripts": {
     "thuweds:mine": "node scripts/thuweds/mine.js",
-    "thuweds:missing": "node scripts/thuweds/missing.js"
+    "thuweds:missing": "node scripts/thuweds/missing.js",
+    "salts:mine": "node scripts/salts/mine.js",
+    "source:fetch": "node scripts/source/fetch.js",
+    "all": "npm run source:fetch && npm run thuweds:mine && npm run thuweds:missing && npm run salts:mine"
   }
 }
