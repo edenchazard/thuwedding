@@ -1,3 +1,5 @@
 artifacts/*
 !artifacts/.gitkeep
 key
+sources/thuweds.csv
+sources/salts.csv
