@@ -14,7 +14,7 @@ function getMinePairs() {
   const lines = fs.readFileSync(mineCsvPath, 'utf8').split(/\r?\n/).filter(Boolean);
   // Return array of [col2, col3] pairs
   return lines.map(line => {
-    const cols = line.split(';');
+    const cols = line.split(',');
     return [cols[1], cols[2]];
   });
 }
@@ -22,7 +22,7 @@ function getMinePairs() {
 function getTJPairs() {
   const lines = fs.readFileSync(tjCsvPath, 'utf8').split(/\r?\n/).filter(Boolean);
   return lines.map(line => {
-    const [a, b] = line.split(';');
+    const [a, b] = line.split(',');
     return [a, b];
   });
 }

@@ -12,7 +12,7 @@ const rows = csvContent
   .trim()
   .split('\n')
   .map(line => {
-    const cols = line.split(';');
+    const cols = line.split(',');
     return `<tr>
       <td>
         <a href="https://dragcave.net/view/${cols[0]}" target="_blank" rel="noopener noreferrer">
