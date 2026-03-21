@@ -1,0 +1,13 @@
+{
+  "name": "thuwedding",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "table.js",
+  "scripts": {
+    "mine": "node scripts/mine.js",
+    "missing": "node scripts/missing.js"
+  }
+}
