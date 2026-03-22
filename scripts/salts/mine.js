@@ -11,8 +11,8 @@ const rows = csvContent
   .trim()
   .split('\n')
   .map(line => {
-    const [code, parentF, parentM] = line.split(',');
-    return `<tr>\n      <td>\n        <a href=\"https://dragcave.net/view/${code}\" target=\"_blank\" rel=\"noopener noreferrer\">\n          <img src=\"https://dragcave.net/image/${code}.gif\" />\n        </a>\n        <i>(${code})</i>\n      </td>\n      <td>\n        ${parentF ? `<a href=\"https://dragcave.net/view/${parentF}\" target=\"_blank\" rel=\"noopener noreferrer\">\n          <img src=\"https://dragcave.net/image/${parentF}.gif\" />\n        </a>\n        <i>(${parentF})</i>` : ''}\n      </td>\n      <td>\n        ${parentM ? `<a href=\"https://dragcave.net/view/${parentM}\" target=\"_blank\" rel=\"noopener noreferrer\">\n          <img src=\"https://dragcave.net/image/${parentM}.gif\" />\n        </a>\n        <i>(${parentM})</i>` : ''}\n      </td>\n    </tr>`;
+    const [code, parentF, parentM, gender] = line.split(',');
+    return `<tr>\n      <td>\n        <a href=\"https://dragcave.net/view/${code}\" target=\"_blank\" rel=\"noopener noreferrer\">\n          <img src=\"https://dragcave.net/image/${code}.gif\" />\n        </a>\n        <i>(${code})</i>\n      </td>\n      <td>\n        ${parentF ? `<a href=\"https://dragcave.net/view/${parentF}\" target=\"_blank\" rel=\"noopener noreferrer\">\n          <img src=\"https://dragcave.net/image/${parentF}.gif\" />\n        </a>\n        <i>(${parentF})</i>` : ''}\n      </td>\n      <td>\n        ${parentM ? `<a href=\"https://dragcave.net/view/${parentM}\" target=\"_blank\" rel=\"noopener noreferrer\">\n          <img src=\"https://dragcave.net/image/${parentM}.gif\" />\n        </a>\n        <i>(${parentM})</i>` : ''}\n      </td>\n      <td>${gender ? gender : ''}</td>\n    </tr>`;
   })
   .join('\n');
 

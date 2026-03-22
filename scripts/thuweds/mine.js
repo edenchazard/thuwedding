@@ -13,6 +13,7 @@ const rows = csvContent
   .split('\n')
   .map(line => {
     const cols = line.split(',');
+    // cols: [code, parentF, parentM, gender]
     return `<tr>
       <td>
         <a href="https://dragcave.net/view/${cols[0]}" target="_blank" rel="noopener noreferrer">
@@ -32,6 +33,7 @@ const rows = csvContent
         </a>
         <i>(${cols[2]})</i>
       </td>
+      <td>${cols[3] ? cols[3] : ''}</td>
     </tr>`;    
   })
   .join('\n');

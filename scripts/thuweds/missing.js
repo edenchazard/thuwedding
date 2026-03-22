@@ -12,7 +12,7 @@ const outPath = path.join(__dirname, '../..', 'artifacts', 'missing.html');
 
 function getMinePairs() {
   const lines = fs.readFileSync(mineCsvPath, 'utf8').split(/\r?\n/).filter(Boolean);
-  // Return array of [col2, col3] pairs
+  // Return array of [col2, col3] pairs, skip gender column if present
   return lines.map(line => {
     const cols = line.split(',');
     return [cols[1], cols[2]];

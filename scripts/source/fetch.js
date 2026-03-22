@@ -24,8 +24,8 @@ async function fetchGroup(groupId, apiKey) {
   if (!data.dragons || typeof data.dragons !== 'object') {
     throw new Error('API response missing dragons object');
   }
-  // Output CSV: id,parent_f,parent_m
-  const rows = Object.values(data.dragons).map(dragon => [dragon.id, dragon.parent_f, dragon.parent_m].join(','));
+  // Output CSV: id,parent_f,parent_m,gender
+  const rows = Object.values(data.dragons).map(dragon => [dragon.id, dragon.parent_f, dragon.parent_m, dragon.gender].join(','));
   return rows.join('\n');
 }
 
