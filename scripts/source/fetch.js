@@ -1,13 +1,13 @@
-import fs from 'fs';
-import path from 'path';
+import { writeFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { getDirname } from '../lib/paths.js';
 import readApiKey from '../lib/readApiKey.js';
 
-export const __dirname = getDirname(import.meta.url);
+const __dirname = getDirname(import.meta.url);
 
 const groups = [
-  { id: '51878', out: path.join(__dirname, '../..', 'sources', 'salts.csv') },
-  { id: '51877', out: path.join(__dirname, '../..', 'sources', 'thuweds.csv') }
+  { id: '51878', out: join(__dirname, '../..', 'sources', 'salts.csv') },
+  { id: '51877', out: join(__dirname, '../..', 'sources', 'thuweds.csv') }
 ];
 
 async function fetchGroup(groupId, apiKey) {
@@ -33,7 +33,7 @@ async function main() {
   const apiKey = readApiKey();
   for (const group of groups) {
     const csv = await fetchGroup(group.id, apiKey);
-    fs.writeFileSync(group.out, csv + '\n', 'utf8');
+    writeFileSync(group.out, csv + '\n', 'utf8');
     console.log(`Wrote ${group.out}`);
   }
 }

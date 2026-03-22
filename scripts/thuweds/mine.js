@@ -1,12 +1,10 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url'; 
+import { readFileSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { getDirname } from '../lib/paths.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const csvPath = path.join(__dirname, '../..', 'sources', 'thuweds.csv');
-const csvContent = fs.readFileSync(csvPath, 'utf8');
+const __dirname = getDirname(import.meta.url);
+const csvPath = join(__dirname, '../..', 'sources', 'thuweds.csv');
+const csvContent = readFileSync(csvPath, 'utf8');
 
 const rows = csvContent
   .trim()
@@ -38,11 +36,11 @@ const rows = csvContent
   })
   .join('\n');
 
-const templatePath = path.join(__dirname, '../../templates/thuweds', 'mine.html');
-let template = fs.readFileSync(templatePath, 'utf8');
+const templatePath = join(__dirname, '../../templates/thuweds', 'mine.html');
+let template = readFileSync(templatePath, 'utf8');
 
 const output = template.replace('%REPLACE%', rows);
 
-const outPath = path.join(__dirname, '../..', 'artifacts', 'thuweds.html');
-fs.writeFileSync(outPath, output, 'utf8');
+const outPath = join(__dirname, '../..', 'artifacts', 'thuweds.html');
+writeFileSync(outPath, output, 'utf8');
 console.log('Wrote artifacts/mine.html');
