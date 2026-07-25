@@ -1,6 +1,6 @@
 # Usage
 
-This assumes you have your 2G Thuweds and Salts already neatly organised into groups.
+This assumes you have your 2G Thuweds and Salts already neatly organised into groups. And an API key - get it from [here](https://dragcave.net/api/manage).
 
 To start with, you'll need to install NodeJS. For Windows, you can get it from here: [nodejs.org/en/download](https://nodejs.org/en/download)
 
