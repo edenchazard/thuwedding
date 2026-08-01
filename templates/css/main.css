@@ -1,0 +1,151 @@
+html {
+  height: 100%;
+  background: #000;
+}
+body {
+  min-height: 100%;
+}
+#container {
+  min-height: 100%;
+  background: #000;
+  font:
+    16px "PT Serif",
+    "Times New Roman",
+    "Times",
+    serif;
+}
+#menu {
+  text-align: right;
+  margin: 5px 0px;
+}
+#menu a {
+  color: #fff;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+#menu a:after {
+  color: #fff;
+  content: "\00B7";
+  margin: 0 4px;
+}
+
+#menu a:last-child:after {
+  content: "";
+}
+#middle {
+  max-width: 1140px;
+}
+#content {
+  background: #ebdbba;
+  padding: 5px;
+}
+#content a {
+  color: #44300b;
+}
+#content h1,
+#content h2,
+#content h3 {
+  color: #44300b;
+}
+.section {
+  margin: 0 auto;
+  max-width: 400px;
+}
+.central {
+  text-align: center;
+}
+#links {
+  text-align: center;
+  margin: 5px 0px;
+}
+#filter {
+  text-align: center;
+  margin: 5px 0px;
+}
+#content hr {
+  height: 2px;
+  border-width: 0;
+  color: #44300b;
+  background-color: #44300b;
+  max-width: 500px;
+}
+#content hr:last-child {
+  display: none;
+}
+footer {
+  text-align: center;
+  color: #fff;
+  padding: 10px;
+}
+
+/* elements */
+h1,
+h2,
+h3 {
+  margin: 5px 0px;
+}
+h1 {
+  font-size: 50px;
+}
+h2 {
+  font-size: 40px;
+}
+h3 {
+  font-size: 30px;
+}
+p {
+  line-height: 16px;
+}
+ul {
+  margin: 0px 0px 0px 20px;
+}
+ul li {
+  list-style-type: disc;
+}
+em {
+  font-style: italic;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 0px auto;
+}
+thead {
+  background: #44300b;
+  color: #fff;
+}
+th {
+  padding: 0.25rem;
+  border: 1px solid #000;
+}
+td {
+  padding: 1rem;
+  border: 1px solid #000;
+  text-align: center;
+}
+img {
+  max-width: 80px;
+  max-height: 80px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 4px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+i {
+  font-size: 1rem;
+  font-style: italic;
+}
+
+/* desktop */
+@media screen and (min-width: 1140px) {
+  #middle {
+    margin: 0 auto;
+  }
+  #content {
+    padding: 20px;
+    -webkit-box-shadow: 0px 0px 5px 0px #ebdbba;
+    -moz-box-shadow: 0px 0px 5px 0px #ebdbba;
+    box-shadow: 0px 0px 5px 0px #ebdbba;
+  }
+}

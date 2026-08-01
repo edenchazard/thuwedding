@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { getDirname } from "../lib/paths.js";
+import { copyAssets } from "../lib/copyAssets.js";
 
 const __dirname = getDirname(import.meta.url);
 const csvPath = join(__dirname, "../..", "sources", "thuweds.csv");
@@ -41,6 +42,7 @@ let template = readFileSync(templatePath, "utf8");
 
 const output = template.replace("%REPLACE%", rows);
 
-const outPath = join(__dirname, "../..", "artifacts", "thuweds.html");
+const outPath = join(__dirname, "../..", "build", "thuweds.html");
 writeFileSync(outPath, output, "utf8");
-console.log("Wrote artifacts/mine.html");
+copyAssets();
+console.log("Wrote build/mine.html");

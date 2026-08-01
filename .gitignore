@@ -1,5 +1,5 @@
-artifacts/*
-!artifacts/.gitkeep
+build/*
+!build/.gitkeep
 sources/thuweds.csv
 sources/salts.csv
 config
