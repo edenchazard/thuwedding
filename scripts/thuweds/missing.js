@@ -1,26 +1,28 @@
-import { readFileSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path'; 
-import { getDirname } from '../lib/paths.js';
+import { readFileSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
+import { getDirname } from "../lib/paths.js";
 
-const __dirname =  getDirname(import.meta.url);
-const mineCsvPath = join(__dirname, '../..', 'sources', 'thuweds.csv');
-const tjCsvPath = join(__dirname, '../..', 'sources', 'tj-pairings.csv');
-const templatePath = join(__dirname, '../../templates/thuweds', 'missing.html');
-const outPath = join(__dirname, '../..', 'artifacts', 'missing.html'); 
+const __dirname = getDirname(import.meta.url);
+const mineCsvPath = join(__dirname, "../..", "sources", "thuweds.csv");
+const tjCsvPath = join(__dirname, "../..", "sources", "tj-pairings.csv");
+const templatePath = join(__dirname, "../../templates/thuweds", "missing.html");
+const outPath = join(__dirname, "../..", "artifacts", "missing.html");
 
 function getMinePairs() {
-  const lines = readFileSync(mineCsvPath, 'utf8').split(/\r?\n/).filter(Boolean);
+  const lines = readFileSync(mineCsvPath, "utf8")
+    .split(/\r?\n/)
+    .filter(Boolean);
   // Return array of [col2, col3] pairs, skip gender column if present
-  return lines.map(line => {
-    const cols = line.split(',');
+  return lines.map((line) => {
+    const cols = line.split(",");
     return [cols[1], cols[2]];
   });
 }
 
 function getTJPairs() {
-  const lines = readFileSync(tjCsvPath, 'utf8').split(/\r?\n/).filter(Boolean);
-  return lines.map(line => {
-    const [a, b] = line.split(',');
+  const lines = readFileSync(tjCsvPath, "utf8").split(/\r?\n/).filter(Boolean);
+  return lines.map((line) => {
+    const [a, b] = line.split(",");
     return [a, b];
   });
 }
@@ -31,7 +33,9 @@ function findMissingPairs(minePairs, pairs) {
 }
 
 function renderRows(missingPairs) {
-  return missingPairs.map(([f, m]) => `
+  return missingPairs
+    .map(
+      ([f, m]) => `
     <tr>
       <td>
         <a href="https://dragcave.net/view/${f}" target="_blank" rel="noopener noreferrer">
@@ -45,7 +49,9 @@ function renderRows(missingPairs) {
         </a>
         <i>(${m})</i>
       </td>
-    </tr>`).join('\n');
+    </tr>`,
+    )
+    .join("\n");
 }
 
 (() => {
@@ -53,13 +59,15 @@ function renderRows(missingPairs) {
     const minePairs = getMinePairs();
     const tjPairs = getTJPairs();
     const missing = findMissingPairs(minePairs, tjPairs);
-    const template = readFileSync(templatePath, 'utf8');
+    const template = readFileSync(templatePath, "utf8");
     const rows = renderRows(missing);
-    const output = template.replace('%REPLACE%', rows);
-    writeFileSync(outPath, output, 'utf8');
-    console.log(`Wrote artifacts/missing.html (${missing.length} missing pairs)`);
+    const output = template.replace("%REPLACE%", rows);
+    writeFileSync(outPath, output, "utf8");
+    console.log(
+      `Wrote artifacts/missing.html (${missing.length} missing pairs)`,
+    );
   } catch (err) {
-    console.error('Error:', err.message);
+    console.error("Error:", err.message);
     process.exit(1);
   }
 })();
