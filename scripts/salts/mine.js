@@ -12,7 +12,38 @@ const rows = csvContent
   .split("\n")
   .map((line) => {
     const [code, parentF, parentM, gender] = line.split(",");
-    return `<tr>\n      <td>\n        <a href=\"https://dragcave.net/view/${code}\" target=\"_blank\" rel=\"noopener noreferrer\">\n          <img src=\"https://dragcave.net/image/${code}.gif\" />\n        </a>\n        <i>(${code})</i>\n      </td>\n      <td>\n        ${parentF ? `<a href=\"https://dragcave.net/view/${parentF}\" target=\"_blank\" rel=\"noopener noreferrer\">\n          <img src=\"https://dragcave.net/image/${parentF}.gif\" />\n        </a>\n        <i>(${parentF})</i>` : ""}\n      </td>\n      <td>\n        ${parentM ? `<a href=\"https://dragcave.net/view/${parentM}\" target=\"_blank\" rel=\"noopener noreferrer\">\n          <img src=\"https://dragcave.net/image/${parentM}.gif\" />\n        </a>\n        <i>(${parentM})</i>` : ""}\n      </td>\n      <td>${gender ? gender : ""}</td>\n    </tr>`;
+    return `
+  <tr>
+    <td>
+      <a href="https://dragcave.net/lineage/${code}" target="_blank" rel="noopener noreferrer">
+        <img src="https://dragcave.net/image/${code}.gif" />
+      </a>
+      <i>(${code})</i> <br />
+      ${gender ? `(${gender})` : ""}
+    </td>
+    <td>
+      ${
+        parentF
+          ? `
+      <a href="https://dragcave.net/lineage/${parentF}" target="_blank" rel="noopener noreferrer">
+        <img src="https://dragcave.net/image/${parentF}.gif" />
+      </a>
+      <i>(${parentF})</i>`
+          : ""
+      }
+    </td>
+    <td>
+      ${
+        parentM
+          ? `
+      <a href="https://dragcave.net/lineage/${parentM}" target="_blank" rel="noopener noreferrer">
+        <img src="https://dragcave.net/image/${parentM}.gif" />
+      </a>
+      <i>(${parentM})</i>`
+          : ""
+      }
+    </td>
+  </tr>`;
   })
   .join("\n");
 

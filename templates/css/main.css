@@ -117,11 +117,9 @@ thead {
 }
 th {
   padding: 0.25rem;
-  border: 1px solid #000;
 }
 td {
   padding: 1rem;
-  border: 1px solid #000;
   text-align: center;
 }
 img {

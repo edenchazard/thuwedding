@@ -39,13 +39,13 @@ function renderRows(missingPairs) {
       ([f, m]) => `
     <tr>
       <td>
-        <a href="https://dragcave.net/view/${f}" target="_blank" rel="noopener noreferrer">
+        <a href="https://dragcave.net/lineage/${f}" target="_blank" rel="noopener noreferrer">
           <img src="https://dragcave.net/image/${f}.gif" />
         </a>
         <i>(${f})</i>
       </td>
       <td>
-        <a href="https://dragcave.net/view/${m}" target="_blank" rel="noopener noreferrer">
+        <a href="https://dragcave.net/lineage/${m}" target="_blank" rel="noopener noreferrer">
           <img src="https://dragcave.net/image/${m}.gif" />
         </a>
         <i>(${m})</i>
