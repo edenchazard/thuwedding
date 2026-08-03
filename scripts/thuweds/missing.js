@@ -2,6 +2,7 @@ import { readFileSync, writeFileSync, mkdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { getDirname } from "../lib/paths.js";
 import { copyAssets } from "../lib/copyAssets.js";
+import { replaceAssetVersion } from "../lib/assetVersion.js";
 
 const __dirname = getDirname(import.meta.url);
 const mineCsvPath = join(__dirname, "../..", "sources", "thuweds.csv");
@@ -64,7 +65,7 @@ function renderRows(missingPairs) {
     const missing = findMissingPairs(minePairs, tjPairs);
     const template = readFileSync(join(templateDir, "index.html"), "utf8");
     const rows = renderRows(missing);
-    const output = template.replace("%REPLACE%", rows);
+    const output = replaceAssetVersion(template).replace("%REPLACE%", rows);
     rmSync(outputDir, { recursive: true, force: true });
     mkdirSync(outputDir, { recursive: true });
     writeFileSync(join(outputDir, "index.html"), output, "utf8");

@@ -2,6 +2,7 @@ import { readFileSync, writeFileSync, mkdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { getDirname } from "../lib/paths.js";
 import { copyAssets } from "../lib/copyAssets.js";
+import { replaceAssetVersion } from "../lib/assetVersion.js";
 
 const __dirname = getDirname(import.meta.url);
 const csvPath = join(__dirname, "../..", "sources", "salts.csv");
@@ -53,7 +54,7 @@ const table = rows
 
 const templatePath = join(templateDir, "index.html");
 let template = readFileSync(templatePath, "utf8");
-const content = template.replace("%REPLACE%", table);
+const content = replaceAssetVersion(template).replace("%REPLACE%", table);
 
 rmSync(outputDir, { recursive: true, force: true });
 
