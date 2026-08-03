@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { getDirname } from "../lib/paths.js";
 import { copyAssets } from "../lib/copyAssets.js";
@@ -7,9 +7,9 @@ const __dirname = getDirname(import.meta.url);
 const csvPath = join(__dirname, "../..", "sources", "thuweds.csv");
 const csvContent = readFileSync(csvPath, "utf8");
 
-const rows = csvContent
-  .trim()
-  .split("\n")
+const rows = csvContent.trim().split("\n");
+
+const table = rows
   .map((line) => {
     const [code, parentF, parentM, gender] = line.split(",");
 
@@ -38,12 +38,21 @@ const rows = csvContent
   })
   .join("\n");
 
-const templatePath = join(__dirname, "../../templates/thuweds", "mine.html");
-let template = readFileSync(templatePath, "utf8");
+const directory = "/thuweds/mine";
+const outputDir = join(__dirname, "../../build", directory);
+const templateDir = join(__dirname, "../../templates", directory);
 
-const output = template.replace("%REPLACE%", rows);
+const content = readFileSync(join(templateDir, "index.html"), "utf8").replace(
+  "%REPLACE%",
+  table,
+);
 
-const outPath = join(__dirname, "../..", "build", "thuweds.html");
-writeFileSync(outPath, output, "utf8");
+rmSync(outputDir, { recursive: true, force: true });
+
+mkdirSync(outputDir, { recursive: true });
+
+writeFileSync(join(outputDir, "index.html"), content, "utf8");
+
 copyAssets();
-console.log("Wrote build/mine.html");
+
+console.log(`${directory}/index.html: ${rows.length} pairs`);

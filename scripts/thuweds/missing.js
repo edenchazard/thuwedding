@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { getDirname } from "../lib/paths.js";
 import { copyAssets } from "../lib/copyAssets.js";
@@ -6,8 +6,10 @@ import { copyAssets } from "../lib/copyAssets.js";
 const __dirname = getDirname(import.meta.url);
 const mineCsvPath = join(__dirname, "../..", "sources", "thuweds.csv");
 const tjCsvPath = join(__dirname, "../..", "sources", "tj-pairings.csv");
-const templatePath = join(__dirname, "../../templates/thuweds", "missing.html");
-const outPath = join(__dirname, "../..", "build", "missing.html");
+
+const directory = "/thuweds/missing";
+const outputDir = join(__dirname, "../../build", directory);
+const templateDir = join(__dirname, "../../templates", directory);
 
 function getMinePairs() {
   const lines = readFileSync(mineCsvPath, "utf8")
@@ -60,12 +62,14 @@ function renderRows(missingPairs) {
     const minePairs = getMinePairs();
     const tjPairs = getTJPairs();
     const missing = findMissingPairs(minePairs, tjPairs);
-    const template = readFileSync(templatePath, "utf8");
+    const template = readFileSync(join(templateDir, "index.html"), "utf8");
     const rows = renderRows(missing);
     const output = template.replace("%REPLACE%", rows);
-    writeFileSync(outPath, output, "utf8");
+    rmSync(outputDir, { recursive: true, force: true });
+    mkdirSync(outputDir, { recursive: true });
+    writeFileSync(join(outputDir, "index.html"), output, "utf8");
     copyAssets();
-    console.log(`Wrote build/missing.html (${missing.length} missing pairs)`);
+    console.log(`${directory}/index.html: ${missing.length} missing pairs`);
   } catch (err) {
     console.error("Error:", err.message);
     process.exit(1);

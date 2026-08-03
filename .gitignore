@@ -1,5 +1,4 @@
-build/*
-!build/.gitkeep
+build
 sources/thuweds.csv
 sources/salts.csv
 config
