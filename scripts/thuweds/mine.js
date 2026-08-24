@@ -1,15 +1,12 @@
-import { readFileSync, writeFileSync, mkdirSync, rmSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { getDirname } from "../lib/paths.js";
-import { copyAssets } from "../lib/copyAssets.js";
-import { replaceAssetVersion } from "../lib/assetVersion.js";
-import { replacePartials } from "../lib/partials.js";
+import { page } from "../lib/page.js";
 
 const __dirname = getDirname(import.meta.url);
 const csvPath = join(__dirname, "../..", "sources", "thuweds.csv");
-const csvContent = readFileSync(csvPath, "utf8");
 
-const rows = csvContent.trim().split("\n");
+const rows = readFileSync(csvPath, "utf8").trim().split("\n");
 
 const table = rows
   .map((line) => {
@@ -35,28 +32,15 @@ const table = rows
           <img src="https://dragcave.net/image/${parentM}.gif" />
         </a>
         <i>(${parentM})</i>
-      </td> 
+      </td>
     </tr>`;
   })
   .join("\n");
 
-const directory = "/thuweds/mine";
-const outputDir = join(__dirname, "../../build", directory);
-const templateDir = join(__dirname, "../../templates", directory);
+page("thuweds/mine", {
+  root: "../../",
+  title: "2G Thuweds",
+  replace: { REPLACE: table },
+});
 
-const content = replacePartials(
-  replaceAssetVersion(
-    readFileSync(join(templateDir, "index.html"), "utf8"),
-  ).replace("%REPLACE%", table),
-  { ROOT: "../../" },
-);
-
-rmSync(outputDir, { recursive: true, force: true });
-
-mkdirSync(outputDir, { recursive: true });
-
-writeFileSync(join(outputDir, "index.html"), content, "utf8");
-
-copyAssets();
-
-console.log(`${directory}/index.html: ${rows.length} pairs`);
+console.log(`/thuweds/mine/index.html: ${rows.length} pairs`);

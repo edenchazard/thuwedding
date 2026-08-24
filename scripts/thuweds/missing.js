@@ -1,17 +1,11 @@
-import { readFileSync, writeFileSync, mkdirSync, rmSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { getDirname } from "../lib/paths.js";
-import { copyAssets } from "../lib/copyAssets.js";
-import { replaceAssetVersion } from "../lib/assetVersion.js";
-import { replacePartials } from "../lib/partials.js";
+import { page } from "../lib/page.js";
 
 const __dirname = getDirname(import.meta.url);
 const mineCsvPath = join(__dirname, "../..", "sources", "thuweds.csv");
 const tjCsvPath = join(__dirname, "../..", "sources", "tj-pairings.csv");
-
-const directory = "/thuweds/missing";
-const outputDir = join(__dirname, "../../build", directory);
-const templateDir = join(__dirname, "../../templates", directory);
 
 function getMinePairs() {
   const lines = readFileSync(mineCsvPath, "utf8")
@@ -59,24 +53,12 @@ function renderRows(missingPairs) {
     .join("\n");
 }
 
-(() => {
-  try {
-    const minePairs = getMinePairs();
-    const tjPairs = getTJPairs();
-    const missing = findMissingPairs(minePairs, tjPairs);
-    const template = readFileSync(join(templateDir, "index.html"), "utf8");
-    const rows = renderRows(missing);
-    const output = replacePartials(
-      replaceAssetVersion(template).replace("%REPLACE%", rows),
-      { ROOT: "../../" },
-    );
-    rmSync(outputDir, { recursive: true, force: true });
-    mkdirSync(outputDir, { recursive: true });
-    writeFileSync(join(outputDir, "index.html"), output, "utf8");
-    copyAssets();
-    console.log(`${directory}/index.html: ${missing.length} missing pairs`);
-  } catch (err) {
-    console.error("Error:", err.message);
-    process.exit(1);
-  }
-})();
+const missing = findMissingPairs(getMinePairs(), getTJPairs());
+
+page("thuweds/missing", {
+  root: "../../",
+  title: "Missing Thuwed Pairs",
+  replace: { REPLACE: renderRows(missing) },
+});
+
+console.log(`/thuweds/missing/index.html: ${missing.length} missing pairs`);

@@ -1,19 +1,12 @@
-import { readFileSync, writeFileSync, mkdirSync, rmSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { getDirname } from "../lib/paths.js";
-import { copyAssets } from "../lib/copyAssets.js";
-import { replaceAssetVersion } from "../lib/assetVersion.js";
-import { replacePartials } from "../lib/partials.js";
+import { page } from "../lib/page.js";
 
 const __dirname = getDirname(import.meta.url);
 const csvPath = join(__dirname, "../..", "sources", "salts.csv");
-const csvContent = readFileSync(csvPath, "utf8");
 
-const directory = "/salts/mine";
-const outputDir = join(__dirname, "../../build", directory);
-const templateDir = join(__dirname, "../../templates", directory);
-
-const rows = csvContent.trim().split("\n");
+const rows = readFileSync(csvPath, "utf8").trim().split("\n");
 
 const table = rows
   .map((line) => {
@@ -53,19 +46,10 @@ const table = rows
   })
   .join("\n");
 
-const templatePath = join(templateDir, "index.html");
-let template = readFileSync(templatePath, "utf8");
-const content = replacePartials(
-  replaceAssetVersion(template).replace("%REPLACE%", table),
-  { ROOT: "../../" },
-);
+page("salts/mine", {
+  root: "../../",
+  title: "2G Salts",
+  replace: { REPLACE: table },
+});
 
-rmSync(outputDir, { recursive: true, force: true });
-
-mkdirSync(outputDir, { recursive: true });
-
-writeFileSync(join(outputDir, "index.html"), content, "utf8");
-
-copyAssets();
-
-console.log(`${directory}/index.html: (${rows.length} rows)`);
+console.log(`/salts/mine/index.html: (${rows.length} rows)`);
