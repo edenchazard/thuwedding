@@ -57,6 +57,7 @@ const templatePath = join(templateDir, "index.html");
 let template = readFileSync(templatePath, "utf8");
 const content = replacePartials(
   replaceAssetVersion(template).replace("%REPLACE%", table),
+  { ROOT: "../../" },
 );
 
 rmSync(outputDir, { recursive: true, force: true });

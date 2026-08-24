@@ -48,6 +48,7 @@ const content = replacePartials(
   replaceAssetVersion(
     readFileSync(join(templateDir, "index.html"), "utf8"),
   ).replace("%REPLACE%", table),
+  { ROOT: "../../" },
 );
 
 rmSync(outputDir, { recursive: true, force: true });

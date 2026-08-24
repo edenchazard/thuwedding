@@ -68,6 +68,7 @@ function renderRows(missingPairs) {
     const rows = renderRows(missing);
     const output = replacePartials(
       replaceAssetVersion(template).replace("%REPLACE%", rows),
+      { ROOT: "../../" },
     );
     rmSync(outputDir, { recursive: true, force: true });
     mkdirSync(outputDir, { recursive: true });

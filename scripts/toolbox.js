@@ -13,7 +13,9 @@ const templatePath = join(__dirname, "..", "templates", "index.html");
 (() => {
   try {
     const template = readFileSync(templatePath, "utf8");
-    const output = replacePartials(replaceAssetVersion(template));
+    const output = replacePartials(replaceAssetVersion(template), {
+      ROOT: "./",
+    });
     rmSync(join(outputDir, "index.html"), { force: true });
     mkdirSync(outputDir, { recursive: true });
     writeFileSync(join(outputDir, "index.html"), output, "utf8");
