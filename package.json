@@ -9,7 +9,8 @@
     "thuweds:mine": "node scripts/thuweds/mine.js",
     "thuweds:missing": "node scripts/thuweds/missing.js",
     "salts:mine": "node scripts/salts/mine.js",
+    "toolbox": "node scripts/toolbox.js",
     "source:fetch": "node scripts/source/fetch.js",
-    "all": "npm run source:fetch && npm run thuweds:mine && npm run thuweds:missing && npm run salts:mine"
+    "all": "npm run source:fetch && npm run toolbox && npm run thuweds:mine && npm run thuweds:missing && npm run salts:mine"
   }
 }
