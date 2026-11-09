@@ -22,23 +22,23 @@ const table = rows
     </td>
     <td>
       ${
-        parentF
-          ? `
-      <a href="https://dragcave.net/lineage/${parentF}" target="_blank" rel="noopener noreferrer">
-        <img src="https://dragcave.net/image/${parentF}.gif" />
-      </a>
-      <i>(${parentF})</i>`
-          : ""
-      }
-    </td>
-    <td>
-      ${
         parentM
           ? `
       <a href="https://dragcave.net/lineage/${parentM}" target="_blank" rel="noopener noreferrer">
         <img src="https://dragcave.net/image/${parentM}.gif" />
       </a>
       <i>(${parentM})</i>`
+          : ""
+      }
+    </td>
+    <td>
+      ${
+        parentF
+          ? `
+      <a href="https://dragcave.net/lineage/${parentF}" target="_blank" rel="noopener noreferrer">
+        <img src="https://dragcave.net/image/${parentF}.gif" />
+      </a>
+      <i>(${parentF})</i>`
           : ""
       }
     </td>
